@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Client", "HttpData
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Shared", "HttpData.Shared\HttpData.Shared.csproj", "{8847E596-D9D1-43D2-B884-28C85E2C42CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Server", "HttpData.Server\HttpData.Server.csproj", "{03C9796C-AF94-49C9-8BAF-97663497674B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03C9796C-AF94-49C9-8BAF-97663497674B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03C9796C-AF94-49C9-8BAF-97663497674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

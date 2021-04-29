@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\HttpData.Shared\Interfaces\IModel.cs" Link="Shared\Interfaces\IModel.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Interfaces\" />
+  </ItemGroup>
+
+</Project>
