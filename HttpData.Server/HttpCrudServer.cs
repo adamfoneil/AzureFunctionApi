@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace HttpData.Server
 {
-    public class DataServer<TKey>
+    public class HttpCrudServer<TKey>
     {
         public async Task<TModel> OnGetAsync<TModel>(TKey id) where TModel : IModel<TKey>
         {
@@ -25,11 +25,6 @@ namespace HttpData.Server
             }
         }
 
-        protected virtual void OnInsert<TModel>(TModel model) where TModel : IModel<TKey>
-        {
-            // do nothing by default
-        }
-
         public async Task<TModel> OnPutAsync<TModel>(TModel model) where TModel : IModel<TKey>
         {
             OnUpdate(model);
@@ -38,6 +33,11 @@ namespace HttpData.Server
         }
 
         protected virtual void OnUpdate<TModel>(TModel model) where TModel : IModel<TKey>
+        {
+            // do nothing by default
+        }
+
+        protected virtual void OnInsert<TModel>(TModel model) where TModel : IModel<TKey>
         {
             // do nothing by default
         }
