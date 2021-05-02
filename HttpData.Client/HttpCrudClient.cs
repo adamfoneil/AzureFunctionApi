@@ -1,4 +1,5 @@
 ﻿using HttpData.Shared.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
@@ -9,23 +10,28 @@ namespace HttpData.Client
     {
         private static HttpClient _client = new HttpClient();
 
-        public HttpCrudClient(string host)
+        private readonly ILogger _logger;
+
+        public HttpCrudClient(string host, ILogger logger = null)
         {
             Host = host;
+            _logger = logger;
         }
 
         public string Host { get; }
       
         public async Task<TModel> PostAsync<TModel>(TModel model) where TModel : IModel<TKey>
         {
-            var response = await _client.PostAsync(RouteUrl<TModel>(), JsonContent.Create(model));
+            //_logger?.LogTrace()
+
+            var response = await _client.PostAsJsonAsync(RouteUrl<TModel>(), model);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<TModel>();
         }
 
         public async Task<TModel> PutAsync<TModel>(TModel model) where TModel : IModel<TKey>
         {
-            var response = await _client.PutAsync(RouteUrl<TModel>(), JsonContent.Create(model));
+            var response = await _client.PutAsJsonAsync(RouteUrl<TModel>(), model);
             response.EnsureSuccessStatusCode();
             return await response.Content.ReadFromJsonAsync<TModel>();
         }
