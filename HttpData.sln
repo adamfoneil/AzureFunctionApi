@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Client", "HttpData.Client\HttpData.Client.csproj", "{E08F89DB-87CB-46A9-8E1C-3EF70D718600}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpData.Client", "HttpData.Client\HttpData.Client.csproj", "{E08F89DB-87CB-46A9-8E1C-3EF70D718600}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Shared", "HttpData.Shared\HttpData.Shared.csproj", "{8847E596-D9D1-43D2-B884-28C85E2C42CE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpData.Server", "HttpData.Server\HttpData.Server.csproj", "{03C9796C-AF94-49C9-8BAF-97663497674B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HttpData.Server", "HttpData.Server\HttpData.Server.csproj", "{03C9796C-AF94-49C9-8BAF-97663497674B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Database", "Demo.Database\Demo.Database.csproj", "{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Functions", "Demo.Functions\Demo.Functions.csproj", "{4F061B16-093B-4303-82AD-F64511DBD25F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{E08F89DB-87CB-46A9-8E1C-3EF70D718600}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E08F89DB-87CB-46A9-8E1C-3EF70D718600}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E08F89DB-87CB-46A9-8E1C-3EF70D718600}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8847E596-D9D1-43D2-B884-28C85E2C42CE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F061B16-093B-4303-82AD-F64511DBD25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F061B16-093B-4303-82AD-F64511DBD25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F061B16-093B-4303-82AD-F64511DBD25F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F061B16-093B-4303-82AD-F64511DBD25F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
