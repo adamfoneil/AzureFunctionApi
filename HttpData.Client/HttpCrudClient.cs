@@ -1,4 +1,4 @@
-﻿using HttpData.Shared.Interfaces;
+﻿using AO.Models.Interfaces;
 using Microsoft.Extensions.Logging;
 using System.Net.Http;
 using System.Net.Http.Json;
