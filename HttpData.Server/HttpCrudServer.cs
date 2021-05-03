@@ -1,4 +1,4 @@
-﻿using HttpData.Shared.Interfaces;
+﻿using AO.Models.Interfaces;
 using System;
 using System.Threading.Tasks;
 
