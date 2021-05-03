@@ -13,14 +13,14 @@ namespace HttpData.Server
     /// <summary>
     /// used with http trigger Azure Functions to handle CRUD operations
     /// </summary>
-    public abstract class FunctionHandler<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
+    public abstract class CrudHandler<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
     {
         protected readonly HttpRequest _request;
         protected readonly ILogger _logger;
         protected readonly IConfiguration _config;
         protected readonly IRepository<TModel, TKey, TUser> _repository;
 
-        public FunctionHandler(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, TKey, TUser> repository)
+        public CrudHandler(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, TKey, TUser> repository)
         {
             _request = request;
             _logger = logger;
