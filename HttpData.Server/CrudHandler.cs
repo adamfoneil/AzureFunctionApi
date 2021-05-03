@@ -1,6 +1,5 @@
 ﻿using AO.Models.Interfaces;
 using CoreNotify.Functions.Helpers;
-using HttpData.Server.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -68,7 +67,7 @@ namespace HttpData.Server
             }
             catch (Exception exc)
             {
-                var message = $"Error executing {HandlerName} function handler {_request.Method} method: {exc.Message}";
+                var message = $"Error executing {HandlerName} crud handler {_request.Method} method: {exc.Message}";
                 _logger.LogError(message, exc);
                 return new BadRequestObjectResult(message);
             }            
