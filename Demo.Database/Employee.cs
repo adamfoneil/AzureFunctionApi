@@ -1,4 +1,4 @@
-﻿using HttpData.Shared.Interfaces;
+﻿using AO.Models.Interfaces;
 
 namespace Demo.Database
 {
