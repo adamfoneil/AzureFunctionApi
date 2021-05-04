@@ -19,7 +19,7 @@ Note, I added a couple new interfaces to [AO.Models interfaces](https://github.c
 - Task [DeleteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L47)<TModel>
  (TModel model)
 
-# HttpData.Server.CrudHandler [CrudHandler.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs#L14)
+# HttpData.Server.AzureHttpFunction [AzureHttpFunction.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/AzureHttpFunction.cs#L14)
 ## Methods
-- Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs#L33)
+- Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/AzureHttpFunction.cs#L33)
  ()
