@@ -1,6 +1,6 @@
 All of my Blazor work has been in the Server-hosted model, but I want to get into WebAssembly, because I think this is ultimately where I should be heading. The main reasons are to open my work to cheaper hosting models and to expand my overall reach in the Blazor space. By targeting WebAssembly, I could host apps on as a static site, then use Azure Functions as the backend. This is much more cost effective than Azure App Service I believe.
 
-The goal for this repo, therefore, is to work out the Azure Function integration in terms of an [HttpCrudClient](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs) and [HttpCrudServer](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs). I've done a lot of work in the relational data access space (via Dapper), and this is the first time I've really considered decoupling from that to some degree. I still envision relational data access in the backend, but WASM apps won't make a direct database connection like Server-based apps do. So, this requires some different thinking to some degree, but I still put a merciless emphasis on convention, simplicity, and testability. I still have an extremely low tolerance for boilerplate and "because someone said so" best practice.
+The goal for this repo, therefore, is to work out the Azure Function integration in terms of an [HttpCrudClient](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs) and [CrudHandler](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs). I've done a lot of work in the relational data access space (via Dapper), and this is the first time I've really considered decoupling from that to some degree. I still envision relational data access in the backend, but WASM apps won't make a direct database connection like Server-based apps do. So, this requires some different thinking, but I still put a merciless emphasis on convention, simplicity, and testability.
 
 
 # HttpData.Client.HttpCrudClient [HttpCrudClient.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L9)
@@ -20,17 +20,6 @@ The goal for this repo, therefore, is to work out the Azure Function integration
 ## Methods
 - Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs#L33)
  ()
-
-# HttpData.Server.HttpCrudServer [HttpCrudServer.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs#L7)
-## Methods
-- Task\<TModel\> [OnGetAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs#L9)<TKey>
- (TKey id)
-- Task\<TModel\> [OnPostAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs#L14)<TModel>
- (TModel model)
-- Task\<TModel\> [OnPutAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs#L28)<TModel>
- (TModel model)
-- Task [OnDeleteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/HttpCrudServer.cs#L45)<TModel>
- (TModel model)
 
 # HttpData.Server.Repository [Repository.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L8)
 ## Methods
