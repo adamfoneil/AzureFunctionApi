@@ -2,6 +2,9 @@ All of my Blazor work has been in the Server-hosted model, but I want to get int
 
 The goal for this repo, therefore, is to work out the Azure Function integration in terms of an [HttpCrudClient](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs) and [CrudHandler](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs). I've done a lot of work in the relational data access space (via Dapper), and this is the first time I've really considered decoupling from that to some degree. I still envision relational data access in the backend, but WASM apps won't make a direct database connection like Server-based apps do. So, this requires some different thinking, but I still put a merciless emphasis on convention, simplicity, and testability.
 
+Note, I added a couple new interfaces to [AO.Models interfaces](https://github.com/adamfoneil/Models/tree/master/Models/Interfaces) that will be a part of this:
+- [IModel](https://github.com/adamfoneil/Models/blob/master/Models/Interfaces/IModel.cs), which is a little funny because in the past I've shunned base class dependencies like this. I envision this as the root interface that any model class must implement. This is really just a way to ensure that entities/models have an `Id` property.
+- [IRepository](https://github.com/adamfoneil/Models/blob/master/Models/Interfaces/IRepository.cs), which is a little funny because I've expressed concerns about code verbosity around the Repository Pattern. This is motivated by a concern to separate the data access from the HTTP interactions.
 
 # HttpData.Client.HttpCrudClient [HttpCrudClient.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L9)
 ## Properties
@@ -20,14 +23,3 @@ The goal for this repo, therefore, is to work out the Azure Function integration
 ## Methods
 - Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs#L33)
  ()
-
-# HttpData.Server.Repository [Repository.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L8)
-## Methods
-- Task\<TModel\> [CreateAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L10)<TModel>
- (TModel model)
-- Task [DeleteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L15)
- (int id)
-- Task\<TModel\> [GetByIdAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L20)
- (int id)
-- Task\<TModel\> [UpdateAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L25)<TModel>
- (TModel model)
