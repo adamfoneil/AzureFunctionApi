@@ -2,7 +2,6 @@ All of my Blazor work has been in the Server-hosted model, but I want to get int
 
 The goal for this repo, therefore, is to work out the Azure Function integration in terms of an [HttpCrudClient](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs) and [CrudHandler](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs). I've done a lot of work in the relational data access space (via Dapper), and this is the first time I've really considered decoupling from that to some degree. I still envision relational data access in the backend, but WASM apps won't make a direct database connection like Server-based apps do. So, this requires some different thinking, but I still put a merciless emphasis on convention, simplicity, and testability.
 
-
 # HttpData.Client.HttpCrudClient [HttpCrudClient.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L9)
 ## Properties
 - string [Host](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L21)
@@ -20,14 +19,3 @@ The goal for this repo, therefore, is to work out the Azure Function integration
 ## Methods
 - Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/CrudHandler.cs#L33)
  ()
-
-# HttpData.Server.Repository [Repository.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L8)
-## Methods
-- Task\<TModel\> [CreateAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L10)<TModel>
- (TModel model)
-- Task [DeleteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L15)
- (int id)
-- Task\<TModel\> [GetByIdAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L20)
- (int id)
-- Task\<TModel\> [UpdateAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/Repository.cs#L25)<TModel>
- (TModel model)
