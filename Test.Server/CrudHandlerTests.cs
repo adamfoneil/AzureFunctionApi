@@ -27,16 +27,16 @@ namespace Test.Server
         public DateTime LocalTime => DateTime.Now;
     }
 
-    public class SampleHandler<TModel> : CrudHandler<TModel, int, SampleUser> where TModel : IModel<int>
+    public class SampleFunction<TModel> : AzureHttpFunction<TModel, int, SampleUser> where TModel : IModel<int>
     {
         private readonly IConfiguration _config;
 
-        public SampleHandler(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, int, SampleUser> repository) : base(request, logger, repository)
+        public SampleFunction(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, int, SampleUser> repository) : base(request, logger, repository)
         {
             _config = config;
         }
 
-        protected override string HandlerName => nameof(SampleHandler<TModel>);
+        protected override string HandlerName => nameof(SampleFunction<TModel>);
 
         protected override async Task<(bool success, SampleUser user)> AuthenticateAsync(HttpRequest request) => 
             await Task.FromResult((true, new SampleUser() { Name = "test" }));
