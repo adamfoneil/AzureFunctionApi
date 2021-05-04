@@ -2,7 +2,6 @@
 using CoreNotify.Functions.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
@@ -15,15 +14,13 @@ namespace HttpData.Server
     public abstract class CrudHandler<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
     {
         protected readonly HttpRequest _request;
-        protected readonly ILogger _logger;
-        protected readonly IConfiguration _config;
+        protected readonly ILogger _logger;        
         protected readonly IRepository<TModel, TKey, TUser> _repository;
 
-        public CrudHandler(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, TKey, TUser> repository)
+        public CrudHandler(HttpRequest request, ILogger logger, IRepository<TModel, TKey, TUser> repository)
         {
             _request = request;
-            _logger = logger;
-            _config = config;
+            _logger = logger;            
             _repository = repository;
         }
 
