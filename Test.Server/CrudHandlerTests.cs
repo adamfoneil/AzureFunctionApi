@@ -1,33 +1,42 @@
+using BlazorAO.Models;
+using Dapper;
+using HttpData.Server;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Net.Http;
+using SqlServer.LocalDb;
+using System.Text.Json;
 
 namespace Test.Server
 {
     [TestClass]
     public class CrudHandlerTests
     {
-        private HttpServer _server;
-        private HttpClient _client;
-
-        public CrudHandlerTests()
-        {
-            var config = new HttpConfiguration();
-            config.Routes.MapHttpRoute("Default", "api/{controller}/{action}/{id}", defaults: new { id = RouteParameter.Optional });
-            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
-
-            _server = new HttpServer(config);
-            _client = new HttpClient(_server);
-        }
+        const string DbName = "BlazorAO";
 
         [TestMethod]
-        public void SampleCrudActions()
+        public void CreateWorkspace()
         {
+            const string WsName = "whatever";
 
-        }
+            using (var cn = LocalDb.GetConnection(DbName))
+            {
+                cn.Execute("DELETE [dbo].[Workspace] WHERE [Name]=@name", new { name = WsName });
+            }
 
-        public void Dispose()
-        {
-            if (_server != null) _server.Dispose();
-        }
+            var ws = new Workspace()
+            {
+                Name = WsName
+            };
+            var body = JsonSerializer.Serialize(ws);
+
+            var request = JsonApiRequest.Create("adamo", Action.Save, body);
+            var logger = LoggerFactory.Create(config => config.AddDebug()).CreateLogger("AzureHttpFunction");
+            var repo = new Repository<Workspace>(LocalDb.GetConnectionString(DbName), logger);
+            var function = new SampleFunction<Workspace>(request, logger, repo);
+
+            var result = function.ExecuteAsync().Result as OkObjectResult;
+            Assert.IsTrue((result.Value as Workspace).Name.Equals(WsName));
+        }    
     }   
 }

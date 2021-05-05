@@ -33,12 +33,14 @@ namespace HttpData.Server
         /// <summary>
         /// simpler initialization of Headers and Query
         /// </summary>
-        public JsonApiRequest Create(string userName, Action action, string body, Dictionary<string, object> headers, Dictionary<string, object> query)
+        public static JsonApiRequest Create(string userName, Action action, string body, Dictionary<string, object> headers = null, Dictionary<string, object> query = null)
         {
             return new JsonApiRequest(userName, action, body, ConvertDictionary(headers), ConvertDictionary(query));
 
-            Dictionary<string, StringValues> ConvertDictionary(Dictionary<string, object> dictionary) =>
-                dictionary.ToDictionary(item => item.Key, item => new StringValues(new string[] { item.Value.ToString() }));            
+            Dictionary<string, StringValues> ConvertDictionary(Dictionary<string, object> dictionary) => 
+                (dictionary != null) ?
+                    dictionary.ToDictionary(item => item.Key, item => new StringValues(new string[] { item.Value.ToString() })) :
+                    null;            
         }
 
         public static async Task<JsonApiRequest> FromHttpRequestAsync(HttpRequest request)
