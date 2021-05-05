@@ -1,5 +1,4 @@
-﻿using AO.Models.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Collections.Generic;
@@ -17,23 +16,36 @@ namespace HttpData.Server
     }
 
     /// <summary>
-    /// represents an http request boilded down to its representation as a request to update data.
-    /// This is so API operations can be tested without an http client
+    /// HttpRequest facade for ease of testing (without http client or server)    
+    /// Assumes json payload always, which is why we don't inspect Form collection
     /// </summary>
-    public class DataRequest
+    public class JsonApiRequest
     {
-        public DataRequest(string userName, Action action, string body, Dictionary<string, StringValues> headers, Dictionary<string, StringValues> query)
+        public JsonApiRequest(string userName, Action action, string body, Dictionary<string, StringValues> headers, Dictionary<string, StringValues> query)
         {
             Action = action;
             UserName = userName;
             Body = body;
+            Headers = headers;
+            Query = query;
         }      
 
-        public static async Task<DataRequest> FromHttpRequestAsync(HttpRequest request)
+        /// <summary>
+        /// simpler initialization of Headers and Query
+        /// </summary>
+        public JsonApiRequest Create(string userName, Action action, string body, Dictionary<string, object> headers, Dictionary<string, object> query)
+        {
+            return new JsonApiRequest(userName, action, body, ConvertDictionary(headers), ConvertDictionary(query));
+
+            Dictionary<string, StringValues> ConvertDictionary(Dictionary<string, object> dictionary) =>
+                dictionary.ToDictionary(item => item.Key, item => new StringValues(new string[] { item.Value.ToString() }));            
+        }
+
+        public static async Task<JsonApiRequest> FromHttpRequestAsync(HttpRequest request)
         {
             var body = await new StreamReader(request.Body).ReadToEndAsync();            
 
-            return new DataRequest(GetUserName(), GetAction(), body, ParseDictionary(request.Headers), ParseDictionary(request.Query));
+            return new JsonApiRequest(GetUserName(), GetAction(), body, ParseDictionary(request.Headers), ParseDictionary(request.Query));
 
             Action GetAction() =>
                 (HttpMethods.IsGet(request.Method)) ? Action.Get :
@@ -53,14 +65,12 @@ namespace HttpData.Server
                 }
             }
 
-            Dictionary<string, StringValues> ParseDictionary(IEnumerable<KeyValuePair<string, StringValues>> collection)
-            {
-                return collection
+            Dictionary<string, StringValues> ParseDictionary(IEnumerable<KeyValuePair<string, StringValues>> collection) => 
+                collection
                     .GroupBy(item => item.Key)
                     .ToDictionary(
-                        grp => grp.Key, 
+                        grp => grp.Key,
                         grp => new StringValues(grp.SelectMany(item => item.Value).ToArray()));
-            }
         }
 
         public Dictionary<string, StringValues> Headers { get; }

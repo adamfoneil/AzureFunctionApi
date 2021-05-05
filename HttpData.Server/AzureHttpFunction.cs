@@ -1,9 +1,8 @@
 ﻿using AO.Models.Interfaces;
-using CoreNotify.Functions.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace HttpData.Server
@@ -13,11 +12,11 @@ namespace HttpData.Server
     /// </summary>
     public abstract class AzureHttpFunction<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
     {
-        protected readonly HttpRequest _request;
+        protected readonly JsonApiRequest _request;
         protected readonly ILogger _logger;        
         protected readonly IRepository<TModel, TKey, TUser> _repository;
 
-        public AzureHttpFunction(HttpRequest request, ILogger logger, IRepository<TModel, TKey, TUser> repository)
+        public AzureHttpFunction(JsonApiRequest request, ILogger logger, IRepository<TModel, TKey, TUser> repository)
         {
             _request = request;
             _logger = logger;            
@@ -26,9 +25,9 @@ namespace HttpData.Server
 
         protected abstract string HandlerName { get; }
 
-        protected abstract Task<(bool success, TUser user)> AuthenticateAsync(HttpRequest request);
+        protected abstract Task<(bool success, TUser user)> AuthenticateAsync(JsonApiRequest request);
 
-        protected abstract TKey GetId(HttpRequest request);
+        protected abstract TKey GetId(JsonApiRequest request);
 
         public async Task<IActionResult> ExecuteAsync()
         {
@@ -39,32 +38,32 @@ namespace HttpData.Server
             {                
                 TModel result;
 
-                if (HttpMethods.IsGet(_request.Method))
+                if (_request.Action == Action.Get)
                 {
                     var id = GetId(_request);
                     result = await _repository.GetAsync(auth.user, id);
                     return new OkObjectResult(result);
                 }
 
-                if (HttpMethods.IsPost(_request.Method) || HttpMethods.IsPut(_request.Method) || HttpMethods.IsPatch(_request.Method))
+                if (_request.Action == Action.Save)
                 {
-                    var model = await _request.DeserializeAsync<TModel>();
+                    var model = JsonSerializer.Deserialize<TModel>(_request.Body);
                     result = await _repository.SaveAsync(auth.user, model);
                     return new OkObjectResult(result);                    
                 }
 
-                if (HttpMethods.IsDelete(_request.Method))
+                if (_request.Action == Action.Delete)
                 {
                     var key = GetId(_request);
                     await _repository.DeleteAsync(auth.user, key);
                     return new OkResult();
                 }
 
-                throw new Exception($"Unsupported method {_request.Method}");
+                throw new Exception($"Unsupported API action {_request.Action}");
             }
             catch (Exception exc)
             {
-                var message = $"Error executing {HandlerName} crud handler {_request.Method} method: {exc.Message}";
+                var message = $"Error executing {HandlerName} crud handler {_request.Action} method: {exc.Message}";
                 _logger.LogError(message, exc);
                 return new BadRequestObjectResult(message);
             }            
