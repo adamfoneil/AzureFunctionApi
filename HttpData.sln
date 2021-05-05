@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpData.Client", "HttpData
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HttpData.Server", "HttpData.Server\HttpData.Server.csproj", "{03C9796C-AF94-49C9-8BAF-97663497674B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Database", "Demo.Database\Demo.Database.csproj", "{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo.Functions", "Demo.Functions\Demo.Functions.csproj", "{4F061B16-093B-4303-82AD-F64511DBD25F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sample.Wasm", "Sample.Wasm\Sample.Wasm.csproj", "{C34B7F4A-82DF-4925-80DC-DE70E142A0BF}"
@@ -33,10 +31,6 @@ Global
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03C9796C-AF94-49C9-8BAF-97663497674B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF60D4F2-767F-4B2F-BAAD-55E2F1C92CDF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4F061B16-093B-4303-82AD-F64511DBD25F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4F061B16-093B-4303-82AD-F64511DBD25F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4F061B16-093B-4303-82AD-F64511DBD25F}.Release|Any CPU.ActiveCfg = Release|Any CPU

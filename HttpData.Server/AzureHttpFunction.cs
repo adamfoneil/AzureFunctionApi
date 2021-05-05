@@ -38,28 +38,26 @@ namespace HttpData.Server
             {                
                 TModel result;
 
-                if (_request.Action == Action.Get)
+                switch (_request.Action)
                 {
-                    var id = GetId(_request);
-                    result = await _repository.GetAsync(auth.user, id);
-                    return new OkObjectResult(result);
-                }
+                    case Action.Get:
+                        var id = GetId(_request);
+                        result = await _repository.GetAsync(auth.user, id);
+                        return new OkObjectResult(result);
 
-                if (_request.Action == Action.Save)
-                {
-                    var model = JsonSerializer.Deserialize<TModel>(_request.Body);
-                    result = await _repository.SaveAsync(auth.user, model);
-                    return new OkObjectResult(result);                    
-                }
+                    case Action.Save:
+                        var model = JsonSerializer.Deserialize<TModel>(_request.Body);
+                        result = await _repository.SaveAsync(auth.user, model);
+                        return new OkObjectResult(result);
 
-                if (_request.Action == Action.Delete)
-                {
-                    var key = GetId(_request);
-                    await _repository.DeleteAsync(auth.user, key);
-                    return new OkResult();
-                }
+                    case Action.Delete:
+                        var key = GetId(_request);
+                        await _repository.DeleteAsync(auth.user, key);
+                        return new OkResult();
 
-                throw new Exception($"Unsupported API action {_request.Action}");
+                    default:
+                        throw new Exception($"Unsupported API action {_request.Action}");
+                }                
             }
             catch (Exception exc)
             {

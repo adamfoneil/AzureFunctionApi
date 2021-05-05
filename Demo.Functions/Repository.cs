@@ -1,4 +1,3 @@
-using Demo.Database;
 using Demo.Functions.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
