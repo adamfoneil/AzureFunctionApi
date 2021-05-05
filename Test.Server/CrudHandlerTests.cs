@@ -1,46 +1,33 @@
-using AO.Models.Interfaces;
-using HttpData.Server;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Net.Http;
-using System.Threading.Tasks;
 
 namespace Test.Server
 {
     [TestClass]
     public class CrudHandlerTests
     {
-        private static HttpClient _client = new HttpClient();
+        private HttpServer _server;
+        private HttpClient _client;
+
+        public CrudHandlerTests()
+        {
+            var config = new HttpConfiguration();
+            config.Routes.MapHttpRoute("Default", "api/{controller}/{action}/{id}", defaults: new { id = RouteParameter.Optional });
+            config.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;
+
+            _server = new HttpServer(config);
+            _client = new HttpClient(_server);
+        }
 
         [TestMethod]
-        public void TestMethod1()
+        public void SampleCrudActions()
         {
-        }
-    }
 
-    public class SampleUser : IUserBase
-    {
-        public string Name { get; set; }
-        public DateTime LocalTime => DateTime.Now;
-    }
-
-    public class SampleFunction<TModel> : AzureHttpFunction<TModel, int, SampleUser> where TModel : IModel<int>
-    {
-        private readonly IConfiguration _config;
-
-        public SampleFunction(HttpRequest request, ILogger logger, IConfiguration config, IRepository<TModel, int, SampleUser> repository) : base(request, logger, repository)
-        {
-            _config = config;
         }
 
-        protected override string HandlerName => nameof(SampleFunction<TModel>);
-
-        protected override async Task<(bool success, SampleUser user)> AuthenticateAsync(HttpRequest request) => 
-            await Task.FromResult((true, new SampleUser() { Name = "test" }));
-
-        protected override int GetId(HttpRequest request) => int.Parse(request.Query["id"]);        
-    }
+        public void Dispose()
+        {
+            if (_server != null) _server.Dispose();
+        }
+    }   
 }

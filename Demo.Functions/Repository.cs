@@ -1,6 +1,5 @@
 using Demo.Database;
 using Demo.Functions.Helpers;
-using HttpData.Server;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
