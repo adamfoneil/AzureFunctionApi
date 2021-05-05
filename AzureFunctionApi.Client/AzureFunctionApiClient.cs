@@ -4,15 +4,15 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 
-namespace HttpData.Client
+namespace AzureFunctionApi.Client
 {
-    public class HttpCrudClient<TKey>
+    public class AzureFunctionApiClient<TKey>
     {
         private static HttpClient _client = new HttpClient();
 
         private readonly ILogger _logger;
 
-        public HttpCrudClient(string host, ILogger logger = null)
+        public AzureFunctionApiClient(string host, ILogger logger = null)
         {
             Host = host;
             _logger = logger;
@@ -53,7 +53,7 @@ namespace HttpData.Client
 
         private string RouteUrlWithId<TModel>(TModel model) where TModel : IModel<TKey> => RouteUrlWithId<TModel>(model.Id);
 
-        private string RouteUrlWithId<TModel>(TKey id) where TModel : IModel<TKey> => $"{RouteUrl<TModel>()}/{id}";
+        private string RouteUrlWithId<TModel>(TKey id) where TModel : IModel<TKey> => $"{RouteUrl<TModel>()}?id={id}";
 
         private string RouteUrl<TModel>() where TModel : IModel<TKey> => Host + $"/{typeof(TModel).Name}";
     }

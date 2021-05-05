@@ -5,17 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\HttpData.Shared\Interfaces\IModel.cs" Link="Shared\Interfaces\IModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AO.Models" Version="1.1.32" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="5.0.0" />
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Shared\Interfaces\" />
   </ItemGroup>
 
 </Project>

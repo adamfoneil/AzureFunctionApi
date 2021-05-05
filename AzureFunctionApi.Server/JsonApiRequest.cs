@@ -6,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace HttpData.Server
+namespace AzureFunction.Server
 {
-    public enum Action
+    public enum RequestAction
     {
         Get,
         Save, // post, put, patch
@@ -21,7 +21,7 @@ namespace HttpData.Server
     /// </summary>
     public class JsonApiRequest
     {
-        public JsonApiRequest(string userName, Action action, string body, Dictionary<string, StringValues> headers, Dictionary<string, StringValues> query)
+        public JsonApiRequest(string userName, RequestAction action, string body, Dictionary<string, StringValues> headers, Dictionary<string, StringValues> query)
         {
             Action = action;
             UserName = userName;
@@ -33,7 +33,7 @@ namespace HttpData.Server
         /// <summary>
         /// simpler initialization of Headers and Query
         /// </summary>
-        public static JsonApiRequest Create(string userName, Action action, string body, Dictionary<string, object> headers = null, Dictionary<string, object> query = null)
+        public static JsonApiRequest Create(string userName, RequestAction action, string body, Dictionary<string, object> headers = null, Dictionary<string, object> query = null)
         {
             return new JsonApiRequest(userName, action, body, ConvertDictionary(headers), ConvertDictionary(query));
 
@@ -49,10 +49,10 @@ namespace HttpData.Server
 
             return new JsonApiRequest(GetUserName(), GetAction(), body, ParseDictionary(request.Headers), ParseDictionary(request.Query));
 
-            Action GetAction() =>
-                (HttpMethods.IsGet(request.Method)) ? Action.Get :
-                (HttpMethods.IsPost(request.Method) || HttpMethods.IsPut(request.Method) || HttpMethods.IsPatch(request.Method)) ? Action.Save :
-                (HttpMethods.IsDelete(request.Method)) ? Action.Delete :
+            RequestAction GetAction() =>
+                (HttpMethods.IsGet(request.Method)) ? RequestAction.Get :
+                (HttpMethods.IsPost(request.Method) || HttpMethods.IsPut(request.Method) || HttpMethods.IsPatch(request.Method)) ? RequestAction.Save :
+                (HttpMethods.IsDelete(request.Method)) ? RequestAction.Delete :
                 throw new Exception($"Unsupported method: {request.Method}");
 
             string GetUserName()
@@ -77,7 +77,7 @@ namespace HttpData.Server
 
         public Dictionary<string, StringValues> Headers { get; }
         public Dictionary<string, StringValues> Query { get; }
-        public Action Action { get; }
+        public RequestAction Action { get; }
         public string UserName { get; }
         public string Body { get; }
     }

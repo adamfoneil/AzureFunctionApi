@@ -1,6 +1,7 @@
 ﻿using AO.Models.Interfaces;
+using AzureFunction.Server;
+using AzureFunctionApi.Server;
 using Dapper.CX.SqlServer.Extensions.Int;
-using HttpData.Server;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,7 +15,7 @@ namespace Test.Server
         public DateTime LocalTime => DateTime.Now;
     }
 
-    public class SampleFunction<TModel> : AzureHttpFunction<TModel, int, SampleUser> where TModel : IModel<int>
+    public class SampleFunction<TModel> : AzureFunctionHandler<TModel, int, SampleUser> where TModel : IModel<int>
     {
         public SampleFunction(JsonApiRequest request, ILogger logger, Repository<TModel> repository) : base(request, logger, repository)
         {
@@ -58,13 +59,17 @@ namespace Test.Server
             _logger.LogTrace($"{user.Name} saving {typeof(TModel).Name} {model}");
             using var cn = new SqlConnection(_connectionString);
 
+            // virtual method here for validation
+
             int id;
             if (IsNew(model))
             {
+                // OnInsert
                 id = await cn.SaveAsync(model, user: user);
             }
             else
             {
+                // OnUpdate
                 id = await cn.MergeAsync(model, user: user);
             }
             

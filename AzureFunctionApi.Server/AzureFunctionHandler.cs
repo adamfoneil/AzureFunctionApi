@@ -1,22 +1,23 @@
 ﻿using AO.Models.Interfaces;
+using AzureFunction.Server;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace HttpData.Server
+namespace AzureFunctionApi.Server
 {
     /// <summary>
     /// used with http trigger Azure Functions to handle CRUD operations
     /// </summary>
-    public abstract class AzureHttpFunction<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
+    public abstract class AzureFunctionHandler<TModel, TKey, TUser> where TModel : IModel<TKey> where TUser : IUserBase
     {
         protected readonly JsonApiRequest _request;
         protected readonly ILogger _logger;        
         protected readonly IRepository<TModel, TKey, TUser> _repository;
 
-        public AzureHttpFunction(JsonApiRequest request, ILogger logger, IRepository<TModel, TKey, TUser> repository)
+        public AzureFunctionHandler(JsonApiRequest request, ILogger logger, IRepository<TModel, TKey, TUser> repository)
         {
             _request = request;
             _logger = logger;            
@@ -40,17 +41,17 @@ namespace HttpData.Server
 
                 switch (_request.Action)
                 {
-                    case Action.Get:
+                    case RequestAction.Get:
                         var id = GetId(_request);
                         result = await _repository.GetAsync(auth.user, id);
                         return new OkObjectResult(result);
 
-                    case Action.Save:
+                    case RequestAction.Save:
                         var model = JsonSerializer.Deserialize<TModel>(_request.Body);
                         result = await _repository.SaveAsync(auth.user, model);
                         return new OkObjectResult(result);
 
-                    case Action.Delete:
+                    case RequestAction.Delete:
                         var key = GetId(_request);
                         await _repository.DeleteAsync(auth.user, key);
                         return new OkResult();

@@ -23,7 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BlazorAO\BlazorAO.Models\BlazorAO.Models.csproj" />
-    <ProjectReference Include="..\HttpData.Server\HttpData.Server.csproj" />
+    <ProjectReference Include="..\AzureFunctionApi.Server\AzureFunctionApi.Server.csproj" />
   </ItemGroup>
 
 </Project>
