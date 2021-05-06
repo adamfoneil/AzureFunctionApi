@@ -6,20 +6,20 @@ Note, I added a couple new interfaces to [AO.Models interfaces](https://github.c
 - [IModel](https://github.com/adamfoneil/Models/blob/master/Models/Interfaces/IModel.cs), which is a little funny because in the past I've shunned base class dependencies like this. I envision this as the root interface that any model class must implement. This is really just a way to ensure that entities/models have an `Id` property.
 - [IRepository](https://github.com/adamfoneil/Models/blob/master/Models/Interfaces/IRepository.cs), which is a little funny because I've expressed concerns about code verbosity around the Repository Pattern. This is motivated by a concern to separate the data access from the HTTP interactions.
 
-# HttpData.Client.HttpCrudClient [HttpCrudClient.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L9)
+# AzureFunctionApi.Client.AzureFunctionApiClient [AzureFunctionApiClient.cs](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L9)
 ## Properties
-- string [Host](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L21)
+- string [Host](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L26)
 ## Methods
-- Task\<TModel\> [PostAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L23)<TModel>
+- Task\<TModel\> [PostAsync](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L28)<TModel>
  (TModel model)
-- Task\<TModel\> [PutAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L32)<TModel>
+- Task\<TModel\> [PutAsync](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L37)<TModel>
  (TModel model)
-- Task\<TModel\> [GetAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L39)<TKey>
+- Task\<TModel\> [GetAsync](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L44)<TKey>
  (TKey id)
-- Task [DeleteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Client/HttpCrudClient.cs#L47)<TModel>
+- Task [DeleteAsync](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Client/AzureFunctionApiClient.cs#L52)<TModel>
  (TModel model)
 
-# HttpData.Server.AzureHttpFunction [AzureHttpFunction.cs](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/AzureHttpFunction.cs#L14)
+# AzureFunctionApi.Server.AzureFunctionHandler [AzureFunctionHandler.cs](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Server/AzureFunctionHandler.cs#L14)
 ## Methods
-- Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/HttpData/blob/master/HttpData.Server/AzureHttpFunction.cs#L33)
+- Task\<IActionResult\> [ExecuteAsync](https://github.com/adamfoneil/AzureFunctionApi/blob/master/AzureFunctionApi.Server/AzureFunctionHandler.cs#L33)
  ()
