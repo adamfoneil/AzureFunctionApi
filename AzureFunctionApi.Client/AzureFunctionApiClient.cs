@@ -12,6 +12,11 @@ namespace AzureFunctionApi.Client
 
         private readonly ILogger _logger;
 
+        public AzureFunctionApiClient(HttpClient client, string host, ILogger logger = null) : this(host, logger)
+        {
+            _client = client;
+        }
+
         public AzureFunctionApiClient(string host, ILogger logger = null)
         {
             Host = host;
